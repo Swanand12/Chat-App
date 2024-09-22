@@ -8,7 +8,7 @@ import io from "socket.io-client";
 // import useNotification from "antd/es/notification/useNotification";
 import { useNotification } from "./context/notificationContext";
 
-const ENDPOINT = "http://localhost:8080";
+const ENDPOINT = "https://chat-app-um5l.onrender.com";
 var socket, selectedChatCompare;
 
 const ChattingContainer = ({ fetchAgain, setFetchAgain, setIsTyping }) => {
