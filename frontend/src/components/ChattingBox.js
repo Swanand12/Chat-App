@@ -39,7 +39,7 @@ const ChattingBox = ({ fetchAgain, setFetchAgain }) => {
             selectedChat && selectedChat ? "md:flex flex-col" : "md:hidden"
           } h-[100%]`}
         >
-          <div className="mx-4 h-[10%]  flex items-center justify-between">
+          <div className="mx-4 h-[10%] bg-gray flex items-center justify-between">
             <div className="flex items-center">
               <div>
                 <img

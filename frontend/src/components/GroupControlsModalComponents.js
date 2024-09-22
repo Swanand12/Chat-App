@@ -255,7 +255,7 @@ const GroupControlsModalComponents = ({
               </>
             ) : (
               <>
-                <div className="pb-1 h-full   ">
+                <div className="pb-1 h-full items-center  flex flex-col ">
                   {users.slice(0, 4).map((user) => (
                     <UserListItem
                       key={user._id}

@@ -147,11 +147,11 @@ const ChattingContainer = ({ fetchAgain, setFetchAgain, setIsTyping }) => {
         <div className="h-[90%] py-1  px-3 ">
           <MessagesComponent messages={messages} />
         </div>
-        <div className="input p-3  bg-gray  items-end h-[10%] flex items-center">
+        <div className="input m-[auto]  rounded-lg w-[90%] bg-gray  items-end h-[45px] flex items-center">
           <input
             id="search"
             onChange={(e) => typingHandler(e)}
-            className=" input font-poppins text-[1rem] px-3 ml-4 cursor-pointer py-2 w-full  rounded-lg mt-3   bg-transparent focus:outline-none"
+            className=" input font-poppins text-[1rem] px-3  cursor-pointer w-full border-2 border-green h-full rounded-lg   bg-transparent focus:outline-none"
             type="text"
             value={newMessage}
             placeholder="Type your message here...."

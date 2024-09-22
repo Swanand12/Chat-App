@@ -84,6 +84,25 @@ export const chatFetchController = async (req, res) => {
   }
 };
 
+export const removeChatController = async (req, res) => {
+  try {
+    const { chats } = req.body;
+
+    await chatModel.deleteMany({ _id: { $in: chats } });
+
+    res.status(200).send({
+      success: true,
+      message: "Successfully deleted chats",
+    });
+  } catch (error) {
+    res.status(500).send({
+      success: false,
+      message: "Error while removing chats",
+      error,
+    });
+  }
+};
+
 export const createGroupChat = async (req, res) => {
   try {
     console.log(req.body.name);

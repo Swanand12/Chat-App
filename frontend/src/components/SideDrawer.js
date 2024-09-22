@@ -9,22 +9,27 @@ import { useChats } from "./context/myChatContext";
 import { GoBellFill } from "react-icons/go";
 import { BiSolidChevronDown } from "react-icons/bi";
 import { IoChatboxEllipses } from "react-icons/io5";
+import { CgProfile } from "react-icons/cg";
+import { AiOutlineLogout } from "react-icons/ai";
 import ProfileModal from "./ProfileModal";
 import { Badge } from "antd";
 import { getNotificationNum } from "./ImportantFunctions/Function";
 // import useNotification from "antd/es/notification/useNotification";
 import { useNotification } from "./context/notificationContext";
+import { useNavigate } from "react-router-dom";
 
 const SideDrawer = ({ fetchAgain, setFetchAgain }) => {
   const [auth, setAuth] = useAuth();
   const [showDrawer, setShowDrawer] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [users, setUsers] = useState([]);
   const [chat, setChat] = useChats();
   const [notification, setNotification] = useNotification();
   const [loadingUsers, setLoadingUsers] = useState(false);
   const [selectedChat, setSelectedChat] = useSelectedChat();
+  const navigate = useNavigate();
   const backend_url = process.env.REACT_APP_BACKEND_URL;
 
   const handleSearch = async () => {
@@ -86,6 +91,19 @@ const SideDrawer = ({ fetchAgain, setFetchAgain }) => {
     }
   };
 
+  const handleLogOut = () => {
+    try {
+      localStorage.removeItem("auth");
+      setAuth({
+        user: null,
+        token: "",
+      });
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       {/* Header */}
@@ -118,7 +136,7 @@ const SideDrawer = ({ fetchAgain, setFetchAgain }) => {
             <GoBellFill className="text-2xl " />
           </div>
           <button
-            onClick={() => setShowProfile(!showProfile)}
+            onClick={() => setShowDropdown(!showDropdown)}
             className="flex items-center px-1 bg-gray rounded-lg"
           >
             <img
@@ -128,6 +146,26 @@ const SideDrawer = ({ fetchAgain, setFetchAgain }) => {
             />
             <BiSolidChevronDown className="text-xl mx-2" />
           </button>
+          <div
+            className={`${
+              showDropdown ? "translate-x-0" : "translate-x-[150%]"
+            } absolute z-10 right-5 shadow-lg bg-lightgray  dropdown duration-300 transform font-semibold w-[10rem]   rounded-lg p-2 flex flex-col top-[100%] `}
+          >
+            <span
+              onClick={() => setShowProfile(!showProfile)}
+              className="p-2 cursor-pointer rounded-lg flex items-center  hover:shadow-lg text-lg hover:text-green"
+            >
+              <CgProfile className="text-[2.5rem] pr-2" />
+              Profile
+            </span>
+            <span
+              onClick={handleLogOut}
+              className="p-2 cursor-pointer flex items-center  rounded-lg hover:shadow-lg text-lg hover:text-green"
+            >
+              <AiOutlineLogout className="text-[2.5rem] pr-2" />
+              Logut
+            </span>
+          </div>
         </div>
 
         {/* SideDrawer */}

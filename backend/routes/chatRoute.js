@@ -4,6 +4,7 @@ import {
   chatAccessAndCreateController,
   chatFetchController,
   createGroupChat,
+  removeChatController,
   removeParticipantFromGroupController,
   renameGroupController,
 } from "../controllers/chatController.js";
@@ -20,6 +21,9 @@ router.post(
 
 // FETCH ALL CHATS OF LOGIN USER || METHOD : GET
 router.get("/fetch-chat", requireSignIn, chatFetchController);
+
+// Remove Chats || METHOD : GET
+router.put("/remove-chats", requireSignIn, removeChatController);
 
 // CREATE GROUP CHAT || METHOD : POST
 router.post("/create-group", requireSignIn, createGroupChat);

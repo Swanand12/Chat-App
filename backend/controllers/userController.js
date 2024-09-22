@@ -99,7 +99,7 @@ export const userLoginController = async (req, res) => {
   } catch (error) {
     res.status(500).send({
       success: false,
-      message: "Error while register the user",
+      message: "Something went wrong",
       error,
     });
   }

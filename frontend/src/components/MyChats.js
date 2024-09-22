@@ -4,20 +4,21 @@ import { useAuth } from "./context/authContext";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useSelectedChat } from "./context/selectedChatContext";
-import { IoMdAdd } from "react-icons/io";
-import { Badge, Modal, notification } from "antd";
+
+import { Badge, Modal } from "antd";
 import UserListItem from "./SideDrawerComponent/UserListItem";
 import UserBadge from "../pages/UserComponent/UserBadge";
+
 import {
   capitalizeWords,
   getIndividualNotificationNum,
   getLatestMessageOrEmail,
-  getSenderEmail,
   getSenderName,
   getSenderPic,
 } from "./ImportantFunctions/Function";
 import Spinner from "../pages/UserComponent/Spinner";
 import { useNotification } from "./context/notificationContext";
+import MenuControls from "./MenuControls";
 
 const MyChats = ({ fetchAgain, setFetchAgain }) => {
   const [chat, setChat] = useChats();
@@ -159,13 +160,11 @@ const MyChats = ({ fetchAgain, setFetchAgain }) => {
           <h1 className="text-green font-bold   text-3xl md:block hidden ">
             Chats
           </h1>
-          <button
-            onClick={() => setCreateGroup(true)}
-            type="button "
-            className="py-2 flex   text-gray duration-300 items-center font-semibold rounded-lg px-3 bg-green "
-          >
-            Group Chat <IoMdAdd className="ml-3 flex items-center" />{" "}
-          </button>
+          <MenuControls
+            setCreateGroup={setCreateGroup}
+            fetchAgain={fetchAgain}
+            setFetchAgain={setFetchAgain}
+          />
         </div>
 
         <div className="overflow-y-scroll  pl-5 h-[88%] scrollbar-hidden ">
@@ -271,7 +270,7 @@ const MyChats = ({ fetchAgain, setFetchAgain }) => {
                 </>
               ) : (
                 <>
-                  <div className="pb-1 h-full   ">
+                  <div className="pb-1 h-full   flex flex-col items-center">
                     {users.slice(0, 4).map((user) => (
                       <UserListItem
                         key={user._id}
