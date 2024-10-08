@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useSelectedChat } from "./context/selectedChatContext";
-import { useAuth } from "./context/authContext";
-import { BiSolidChevronDown } from "react-icons/bi";
-import ProfileModal from "./ProfileModal";
+import React, { useState } from "react";
+import { useSelectedChat } from "../context/selectedChatContext";
+import { useAuth } from "../context/authContext";
+import ProfileModal from "../SideDrawerComponent/ProfileModal";
 import {
   capitalizeWords,
   getSender,
   getSenderName,
   getSenderPic,
-} from "./ImportantFunctions/Function";
+} from "../ImportantFunctions/Function";
 import { FaEye } from "react-icons/fa";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import Spinner from "../pages/UserComponent/Spinner";
 import GroupControlsModalComponents from "./GroupControlsModalComponents";
 import ChattingContainer from "./ChattingContainer";
 import { Typewriter } from "react-simple-typewriter";
@@ -32,18 +30,18 @@ const ChattingBox = ({ fetchAgain, setFetchAgain }) => {
       <div
         className={`md:w-[65%]  ${
           selectedChat && selectedChat ? "slide-in" : "slide-out"
-        }   bg-gray  w-full h-[100vh] md:rounded-lg shadow-2xl  md:h-[87vh] md:mt-2 md:mr-2 pb-2 absolute md:static `}
+        }   bg-gray  w-full  h-[100svh] md:h-full   absolute md:static `}
       >
         <div
           className={`${
             selectedChat && selectedChat ? "md:flex flex-col" : "md:hidden"
-          } h-[100%]`}
+          } h-[100%] relative`}
         >
-          <div className="mx-4 h-[10%] bg-gray flex items-center justify-between">
+          <div className=" absolute w-full h-[65px] bg-gray flex items-center justify-between">
             <div className="flex items-center">
               <div>
                 <img
-                  className="ll hover:shadow-lg w-[2.5rem] rounded-full h-[2.5rem] border border-green mx-2 my-1.5"
+                  className="image hover:shadow-lg w-[2.5rem] rounded-full h-[2.5rem] border border-green mx-2 my-1.5"
                   src={pic}
                   alt="user-image"
                 />
@@ -82,7 +80,7 @@ const ChattingBox = ({ fetchAgain, setFetchAgain }) => {
               )}
             </div>
           </div>
-          <div className="bg-lightgray  h-[88%]   ">
+          <div className="bg-lightgray  h-[100%] pt-[70px] border-gray border-b-[30px]  ">
             <ChattingContainer
               fetchAgain={fetchAgain}
               setFetchAgain={setFetchAgain}
@@ -91,11 +89,9 @@ const ChattingBox = ({ fetchAgain, setFetchAgain }) => {
           </div>
         </div>
 
-        <>
+        {!selectedChat && (
           <div
-            className={`w-full ${
-              selectedChat && selectedChat ? "md:hidden" : "md:flex"
-            } text-4xl  text-green h-full flex items-center justify-center font-semibold`}
+            className={`w-full  text-4xl  text-green h-full flex items-center justify-center font-semibold`}
           >
             {" "}
             <Typewriter
@@ -113,7 +109,7 @@ const ChattingBox = ({ fetchAgain, setFetchAgain }) => {
             />
             {/* <h1>Select the chat to Chat with your friend</h1> */}
           </div>
-        </>
+        )}
       </div>
 
       <ProfileModal

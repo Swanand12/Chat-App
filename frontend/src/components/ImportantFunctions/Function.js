@@ -53,12 +53,16 @@ export const getLatestMessageOrEmail = (mychat, auth) => {
     return mychat.latestMessage.sender.name === auth.user.name
       ? you +
           (mychat?.latestMessage?.content !== undefined
-            ? mychat?.latestMessage?.content
+            ? mychat?.latestMessage?.content.length > 30
+              ? mychat?.latestMessage?.content.substring(0, 20) + "..."
+              : mychat?.latestMessage?.content
             : "")
       : mychat.latestMessage.sender.name +
           ": " +
           (mychat?.latestMessage?.content !== undefined
-            ? mychat?.latestMessage?.content
+            ? mychat?.latestMessage?.content.length > 30
+              ? mychat?.latestMessage?.content.substring(0, 20) + "..."
+              : mychat?.latestMessage?.content
             : "");
   } else {
     return getSenderEmail(mychat, auth);

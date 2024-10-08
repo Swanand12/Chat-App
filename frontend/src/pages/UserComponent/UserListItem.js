@@ -6,7 +6,7 @@ const UserListItem = ({ user, handleFunction }) => {
       <div
         key={user?._id}
         onClick={handleFunction}
-        className="h-[4rem] w-full flex items-center  flex-grow hover:scale-105 hover:shadow-2xl my-1 bg-lightgray duration-300 rounded-lg cursor-pointer mx-2   font-poppins   px-2   flex "
+        className=" w-[95%] flex items-center  flex-grow hover:scale-105 hover:shadow-2xl my-1 bg-lightgray duration-300 rounded-lg cursor-pointer mx-2   font-poppins   px-2   flex "
       >
         <img
           className=" border border-green w-[3rem] h-[3rem] rounded-full mx-3 my-1.5"

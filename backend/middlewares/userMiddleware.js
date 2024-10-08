@@ -8,7 +8,7 @@ export const requireSignIn = async (req, res, next) => {
     try {
       token = req.headers.authorization;
 
-      const decode = await JWT.verify(token, process.env.JWT_SECRET_KEY);
+      const decode = JWT.verify(token, process.env.JWT_SECRET_KEY);
 
       req.user = await userModel.findById({ _id: decode._id });
 

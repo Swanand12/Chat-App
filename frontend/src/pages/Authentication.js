@@ -176,7 +176,7 @@ const Authentication = () => {
                           <img
                             src={photo}
                             alt="image-profile"
-                            className="w-[6rem] h-[6rem] border-2 border-green rounded-full"
+                            className="w-[6rem] image h-[6rem] border-2 border-green rounded-full"
                           />
                         ) : (
                           <div className="w-[6rem] h-[6rem] border-2 flex justify-center items-center border-green rounded-full">

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useChats } from "./context/myChatContext";
-import { useAuth } from "./context/authContext";
+import { useChats } from "../context/myChatContext";
+import { useAuth } from "../context/authContext";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { useSelectedChat } from "./context/selectedChatContext";
+import { useSelectedChat } from "../context/selectedChatContext";
 
 import { Badge, Modal } from "antd";
-import UserListItem from "./SideDrawerComponent/UserListItem";
-import UserBadge from "../pages/UserComponent/UserBadge";
+import UserListItem from "../../pages/UserComponent/UserListItem";
+import UserBadge from "../../pages/UserComponent/UserBadge";
 
 import {
   capitalizeWords,
@@ -15,9 +15,9 @@ import {
   getLatestMessageOrEmail,
   getSenderName,
   getSenderPic,
-} from "./ImportantFunctions/Function";
-import Spinner from "../pages/UserComponent/Spinner";
-import { useNotification } from "./context/notificationContext";
+} from "../ImportantFunctions/Function";
+import Spinner from "../../pages/UserComponent/Spinner";
+import { useNotification } from "../context/notificationContext";
 import MenuControls from "./MenuControls";
 
 const MyChats = ({ fetchAgain, setFetchAgain }) => {
@@ -27,6 +27,7 @@ const MyChats = ({ fetchAgain, setFetchAgain }) => {
   const [createGroup, setCreateGroup] = useState(false);
   const [groupName, setGroupName] = useState("");
   const [users, setUsers] = useState([]);
+  const [search, SetSearch] = useState("");
   const [userToAdd, setUserToAdd] = useState([]);
   const [loadingUsers, setLoadingUsers] = useState(false);
   const [createLoading, setCreateloading] = useState(false);
@@ -59,6 +60,7 @@ const MyChats = ({ fetchAgain, setFetchAgain }) => {
 
   const handleSearch = async (searchQuery) => {
     try {
+      SetSearch(searchQuery);
       if (!searchQuery.trim()) {
         setUsers([]);
         return;
@@ -155,11 +157,9 @@ const MyChats = ({ fetchAgain, setFetchAgain }) => {
   console.log();
   return (
     <>
-      <div className="w-[100%] md:w-[35%] chat  shadow-2xl box-border rounded-lg m-2 md:max-h-[87vh] bg-gray  ">
-        <div className=" my-3 mx-5 flex items-center justify-between">
-          <h1 className="text-green font-bold   text-3xl md:block hidden ">
-            Chats
-          </h1>
+      <div className="w-[100%] md:w-[35%] chat  box-border   bg-gray  ">
+        <div className=" my-3.5 px-5 flex items-center justify-between">
+          <h1 className="text-green font-semibold   text-3xl  ">Chats</h1>
           <MenuControls
             setCreateGroup={setCreateGroup}
             fetchAgain={fetchAgain}
@@ -167,7 +167,7 @@ const MyChats = ({ fetchAgain, setFetchAgain }) => {
           />
         </div>
 
-        <div className="overflow-y-scroll  pl-5 h-[88%] scrollbar-hidden ">
+        <div className="overflow-y-scroll  p h-[88%] scrollbar-hidden ">
           {chat.length > 0 &&
             chat.map((mychat) => (
               <div
@@ -175,36 +175,38 @@ const MyChats = ({ fetchAgain, setFetchAgain }) => {
                 onClick={() => handleSelectedChat(mychat)}
                 className={`${
                   selectedChat._id === mychat._id
-                    ? "shadow-xl scale-105 rounded-xl w-[95%] "
+                    ? "shadow-xl bg-lightgray    "
                     : ""
-                } h-[4rem] hover:shadow-xl hover:scale-105 hover:w-[95%] hover:rounded-xl cursor-pointer items-center  duration-300   bg-gray font-poppins  py-1 px-2   flex }`}
+                } h-[4rem] hover:shadow-xl hover:bg-lightgray  cursor-pointer items-center  duration-300   bg-gray font-poppins   px-2   flex }`}
               >
                 <div>
                   {" "}
                   <img
-                    className="ll hover:shadow-lg w-[2.5rem] rounded-full h-[2.5rem]  mx-2 my-1.5"
+                    className="image hover:shadow-lg w-[2.5rem] rounded-full h-[2.5rem]  mx-2 my-1.5"
                     src={getSenderPic(mychat, auth)}
                     alt="user-image"
                   />
                 </div>
-                <div className="ml-4 flex flex-col justify-center">
-                  <span className="font-semibold">
-                    {capitalizeWords(getSenderName(mychat, auth))}
-                  </span>
-                  <span className="text-[0.8rem] flex">
-                    {getLatestMessageOrEmail(mychat, auth)}
-                  </span>
-                </div>
-                <div className="ms-[auto]">
-                  <Badge
-                    count={getIndividualNotificationNum(mychat, notification)}
-                    color="green"
-                    className={
-                      notification.find((n) => n.chat._id === mychat._id)
-                        ? ""
-                        : "hidden"
-                    }
-                  />
+                <div className="ml-4 h-full flex items-center  w-full border-lightgray border-b-[2px]">
+                  <div className="flex flex-col justify-center">
+                    <span className="font-semibold">
+                      {capitalizeWords(getSenderName(mychat, auth))}
+                    </span>
+                    <span className="text-[0.8rem] flex">
+                      {getLatestMessageOrEmail(mychat, auth)}
+                    </span>
+                  </div>
+                  <div className="ms-[auto]">
+                    <Badge
+                      count={getIndividualNotificationNum(mychat, notification)}
+                      color="green"
+                      className={
+                        notification.find((n) => n.chat._id === mychat._id)
+                          ? ""
+                          : "hidden"
+                      }
+                    />
+                  </div>
                 </div>
               </div>
             ))}
@@ -214,8 +216,12 @@ const MyChats = ({ fetchAgain, setFetchAgain }) => {
         open={createGroup}
         onCancel={() => setCreateGroup(false)}
         footer={false}
+        centered
       >
         <div>
+          <h1 className=" bg-green text-white text-2xl font-semibold justify-center mb-1 p-2 my-1 relative flex items-center">
+            Create Group
+          </h1>
           <div className="input my-1 relative flex items-center">
             <input
               id="search"
@@ -260,7 +266,7 @@ const MyChats = ({ fetchAgain, setFetchAgain }) => {
                 Add friends
               </label>
             </div>
-            <div className="h-full pt-2 overflow-y-scroll scrollbar-hidden">
+            <div className="h-full pt-2 ">
               {loadingUsers ? (
                 <>
                   <span className="flex items-center justify-center w-full">
@@ -270,15 +276,17 @@ const MyChats = ({ fetchAgain, setFetchAgain }) => {
                 </>
               ) : (
                 <>
-                  <div className="pb-1 h-full   flex flex-col items-center">
-                    {users.slice(0, 4).map((user) => (
-                      <UserListItem
-                        key={user._id}
-                        user={user}
-                        handleFunction={() => handleAddUser(user)}
-                      />
-                    ))}
-                  </div>
+                  {search && (
+                    <div className="pb-1 max-h-[200px] scrollbar overflow-y-auto  flex flex-col items-center">
+                      {users.map((user) => (
+                        <UserListItem
+                          key={user._id}
+                          user={user}
+                          handleFunction={() => handleAddUser(user)}
+                        />
+                      ))}
+                    </div>
+                  )}
                 </>
               )}
             </div>

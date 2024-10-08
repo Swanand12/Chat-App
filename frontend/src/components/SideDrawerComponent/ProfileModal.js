@@ -14,7 +14,7 @@ const ProfileModal = ({ showProfile, setShowProfile, user }) => {
           Profile
         </h1>
         <img
-          className="rounded-full hover:shadow-lg m-3 w-[6rem] h-[6rem] border border-green mx-2 my-1.5"
+          className="rounded-full image hover:shadow-lg m-3 w-[6rem] h-[6rem] border border-green mx-2 my-1.5"
           src={user?.pic}
           alt="user-image"
         />

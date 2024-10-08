@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Modal } from "antd";
-import UserBadge from "../pages/UserComponent/UserBadge";
-import UserListItem from "./SideDrawerComponent/UserListItem";
+import UserBadge from "../../pages/UserComponent/UserBadge";
+import UserListItem from "../../pages/UserComponent/UserListItem";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { useSelectedChat } from "./context/selectedChatContext";
-import { useAuth } from "./context/authContext";
-import Spinner from "../pages/UserComponent/Spinner";
+import { useSelectedChat } from "../context/selectedChatContext";
+import { useAuth } from "../context/authContext";
+import Spinner from "../../pages/UserComponent/Spinner";
 
 const GroupControlsModalComponents = ({
   showGroupControls,
@@ -18,6 +18,7 @@ const GroupControlsModalComponents = ({
   const [auth, setAuth] = useAuth();
   const [loadingUsers, setLoadingUsers] = useState(false);
   const [selectedChat, setSelectedChat] = useSelectedChat();
+  const [search, setSearch] = useState("");
   const [groupRename, setGroupRename] = useState("");
   const backend_url = process.env.REACT_APP_BACKEND_URL;
 
@@ -64,6 +65,7 @@ const GroupControlsModalComponents = ({
 
   const handleSearch = async (searchQuery) => {
     try {
+      setSearch(searchQuery);
       if (!searchQuery.trim()) {
         setUsers([]);
         return;
@@ -190,7 +192,11 @@ const GroupControlsModalComponents = ({
         open={showGroupControls}
         onCancel={() => setShowGroupControls(false)}
         footer={false}
+        centered
       >
+        <h1 className=" bg-green text-white text-2xl font-semibold justify-center mb-1 p-2 my-1 relative flex items-center">
+          Group Controls
+        </h1>
         <div className="input ms-[auto] flex flex-col my-3 relative md:flex  md:flex-row items-end  ">
           <input
             id="search"
@@ -245,7 +251,7 @@ const GroupControlsModalComponents = ({
               Add users to group
             </label>
           </div>
-          <div className="h-full pt-2 overflow-y-scroll scrollbar-hidden">
+          <div className=" pt-2">
             {loadingUsers ? (
               <>
                 <span className="flex items-center">
@@ -255,17 +261,19 @@ const GroupControlsModalComponents = ({
               </>
             ) : (
               <>
-                <div className="pb-1 h-full items-center  flex flex-col ">
-                  {users.slice(0, 4).map((user) => (
-                    <UserListItem
-                      key={user._id}
-                      user={user}
-                      handleFunction={() =>
-                        handleAddUser(user._id, selectedChat._id)
-                      }
-                    />
-                  ))}
-                </div>
+                {search && (
+                  <div className="pb-1 max-h-[200px] scrollbar  items-center overflow-y-auto overflow-x-hidden flex flex-col ">
+                    {users.map((user) => (
+                      <UserListItem
+                        key={user._id}
+                        user={user}
+                        handleFunction={() =>
+                          handleAddUser(user._id, selectedChat._id)
+                        }
+                      />
+                    ))}
+                  </div>
+                )}
               </>
             )}
           </div>

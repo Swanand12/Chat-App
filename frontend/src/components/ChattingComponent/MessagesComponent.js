@@ -1,7 +1,7 @@
 import React from "react";
-import { useAuth } from "./context/authContext";
-import ScrollableFeed from "react-scrollable-feed";
-import { useSelectedChat } from "./context/selectedChatContext";
+import { useAuth } from "../context/authContext";
+import ScrollToBottom from "react-scroll-to-bottom";
+import { useSelectedChat } from "../context/selectedChatContext";
 
 const MessagesComponent = ({ messages }) => {
   const [auth, setAuth] = useAuth();
@@ -10,33 +10,36 @@ const MessagesComponent = ({ messages }) => {
   return (
     <>
       {" "}
-      <ScrollableFeed className="flex flex-col  scrollbar-hidden">
+      <ScrollToBottom
+        initialScrollBehavior="smooth"
+        className="flex flex-col h-full   "
+      >
         {messages.map((m) => (
-          <div key={m._id}>
+          <div key={m._id} className="scrollbar-hidden">
             {selectedChat.isGroupChat ? (
               <>
                 {auth.user._id === m.sender._id ? (
                   <>
-                    <div className="bg-green w-[fit-content] max-w-[15rem] px-3 py-2 ms-[auto] flex flex-wrap items-center rounded-lg  my-[2px] ">
-                      <span className=" leading-none text-sm text-white font-semibold    ">
+                    <div className="bg-green w-[fit-content] max-w-[15rem] px-2 py-1  ms-[auto] flex flex-wrap items-center rounded-lg  my-[2px] ">
+                      <span className=" leading-tight text-sm text-white     ">
                         {m?.content}
                       </span>
-                      <span className="leading-none  pl-4 text-[10px] ms-[auto] text-lightgray font-semibold   ">
+                      <span className="leading-tight  pl-4 text-[10px] ms-[auto] text-lightgray    ">
                         {m?.time}
                       </span>{" "}
                     </div>
                   </>
                 ) : (
                   <>
-                    <div className="bg-white w-[fit-content] rounded-lg px-3  my-[2px]">
+                    <div className="bg-white w-[fit-content] rounded-lg px-2  my-1 [2px]">
                       <span className="text-[12px]  text-green">
                         ~ {m?.sender?.name}
                       </span>
                       <div className="max-w-[15rem] mt-1  me-[auto] flex flex-wrap items-center  ">
-                        <span className=" leading-none text-sm font-semibold  mb-2  ">
+                        <span className=" leading-tight text-sm   mb-2  ">
                           {m?.content}
                         </span>
-                        <span className="leading-none  pl-4 text-[10px] mb-1 ms-[auto]  font-semibold   ">
+                        <span className="leading-tight  pl-4 text-[10px] mb-1 ms-[auto]     ">
                           {m?.time}
                         </span>
                       </div>
@@ -48,22 +51,22 @@ const MessagesComponent = ({ messages }) => {
               <>
                 {auth.user._id === m.sender._id ? (
                   <>
-                    <div className="bg-green w-[fit-content] max-w-[15rem] px-3 py-2 ms-[auto] flex flex-wrap items-center rounded-lg  my-[2px] ">
-                      <span className=" leading-none text-sm text-white font-semibold  mb-2  ">
+                    <div className="bg-green w-[fit-content] max-w-[15rem] px-2 py-1  ms-[auto] flex flex-wrap items-center rounded-lg  my-[2px] ">
+                      <span className=" leading-tight text-sm text-white   mb-2  ">
                         {m?.content}
                       </span>
-                      <span className="leading-none  pl-4 text-[10px] ms-[auto] text-lightgray font-semibold   ">
+                      <span className="leading-tight  pl-4 text-[10px] ms-[auto] text-lightgray    ">
                         {m?.time}
                       </span>{" "}
                     </div>
                   </>
                 ) : (
                   <>
-                    <div className="bg-white w-[fit-content] max-w-[15rem] px-3 py-2 me-[auto] flex flex-wrap items-center rounded-lg  my-[2px] ">
-                      <span className=" leading-none text-sm font-semibold  mb-2  ">
+                    <div className="bg-white w-[fit-content] max-w-[15rem] px-2 py-1  me-[auto] flex flex-wrap items-center rounded-lg  my-[2px] ">
+                      <span className=" leading-tight text-sm   mb-2  ">
                         {m?.content}
                       </span>
-                      <span className="leading-none  pl-4 text-[10px]  ms-[auto]  font-semibold   ">
+                      <span className="leading-tight  pl-4 text-[10px]  ms-[auto]     ">
                         {m?.time}
                       </span>
                     </div>
@@ -73,7 +76,7 @@ const MessagesComponent = ({ messages }) => {
             )}
           </div>
         ))}
-      </ScrollableFeed>
+      </ScrollToBottom>
     </>
   );
 };

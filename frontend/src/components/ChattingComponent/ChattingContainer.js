@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useSelectedChat } from "./context/selectedChatContext";
+import { useSelectedChat } from "../context/selectedChatContext";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { useAuth } from "./context/authContext";
+import { useAuth } from "../context/authContext";
 import MessagesComponent from "./MessagesComponent";
 import io from "socket.io-client";
-// import useNotification from "antd/es/notification/useNotification";
-import { useNotification } from "./context/notificationContext";
+import { useNotification } from "../context/notificationContext";
 
-const ENDPOINT = "https://chat-app-um5l.onrender.com";
+// const ENDPOINT = "https://chat-app-um5l.onrender.com";
+const ENDPOINT = "http://localhost:8080";
+
 var socket, selectedChatCompare;
 
 const ChattingContainer = ({ fetchAgain, setFetchAgain, setIsTyping }) => {
@@ -129,7 +130,7 @@ const ChattingContainer = ({ fetchAgain, setFetchAgain, setIsTyping }) => {
     }
 
     let lastTypingTime = new Date().getTime();
-    var timer = 3000;
+    var timer = 20000;
 
     setTimeout(() => {
       var timeNow = new Date().getTime();
@@ -143,15 +144,15 @@ const ChattingContainer = ({ fetchAgain, setFetchAgain, setIsTyping }) => {
   };
   return (
     <>
-      <div className="h-[100%] bg-lightgray  ">
-        <div className="h-[90%] py-1  px-3 ">
+      <div className="h-[100%] bg-lightgray">
+        <div className="h-[calc(100%-60px)] md:h-[calc(100%-80px)] py-1  px-3 ">
           <MessagesComponent messages={messages} />
         </div>
-        <div className="input m-[auto]  rounded-lg w-[90%] bg-gray  items-end h-[45px] flex items-center">
+        <div className="input m-[auto]    rounded-lg w-[90%]  h-[60px]  md:h-[80px] flex justify-center items-center">
           <input
             id="search"
             onChange={(e) => typingHandler(e)}
-            className=" input font-poppins text-[1rem] px-3  cursor-pointer w-full border-2 border-green h-full rounded-lg   bg-transparent focus:outline-none"
+            className=" input font-poppins text-[1rem] px-3  cursor-pointer w-full border-2 border-green h-[45px] rounded-lg   bg-transparent focus:outline-none"
             type="text"
             value={newMessage}
             placeholder="Type your message here...."

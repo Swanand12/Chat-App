@@ -2,10 +2,10 @@ import axios from "axios";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { FaSearch } from "react-icons/fa";
-import { useAuth } from "./context/authContext";
-import UserListItem from "./SideDrawerComponent/UserListItem";
-import { useSelectedChat } from "./context/selectedChatContext";
-import { useChats } from "./context/myChatContext";
+import { useAuth } from "../context/authContext";
+import UserListItem from "../../pages/UserComponent/UserListItem";
+import { useSelectedChat } from "../context/selectedChatContext";
+import { useChats } from "../context/myChatContext";
 import { GoBellFill } from "react-icons/go";
 import { BiSolidChevronDown } from "react-icons/bi";
 import { IoChatboxEllipses } from "react-icons/io5";
@@ -13,9 +13,8 @@ import { CgProfile } from "react-icons/cg";
 import { AiOutlineLogout } from "react-icons/ai";
 import ProfileModal from "./ProfileModal";
 import { Badge } from "antd";
-import { getNotificationNum } from "./ImportantFunctions/Function";
-// import useNotification from "antd/es/notification/useNotification";
-import { useNotification } from "./context/notificationContext";
+import { getNotificationNum } from "../ImportantFunctions/Function";
+import { useNotification } from "../context/notificationContext";
 import { useNavigate } from "react-router-dom";
 
 const SideDrawer = ({ fetchAgain, setFetchAgain }) => {
@@ -52,6 +51,7 @@ const SideDrawer = ({ fetchAgain, setFetchAgain }) => {
       );
 
       if (data?.users.length > 0) {
+        setSearchQuery("");
         setLoadingUsers(false);
         toast.success(data?.message);
         setUsers(data?.users);
@@ -108,9 +108,9 @@ const SideDrawer = ({ fetchAgain, setFetchAgain }) => {
     <>
       {/* Header */}
       <div
-        className={`h-[10vh] bg-gray mx-2 rounded-lg mt-2 flex relative ${
+        className={` min-h-[70px] h-[10%] bg-gray flex relative ${
           selectedChat ? "md:flex hidden " : ""
-        }  justify-between shadow-lg items-center`}
+        }  justify-between  mb-1 items-center`}
       >
         <button
           type="button"
@@ -121,17 +121,17 @@ const SideDrawer = ({ fetchAgain, setFetchAgain }) => {
           <span className="hidden md:block">Search</span>
         </button>
         <div className="flex items-center ">
-          <IoChatboxEllipses className="  text-[3rem] text-green mr-3" />
-          <h1 className="mb-3 sm:flex hidden  sm:text-4xl font-bold text-green">
-            Chat App
+          <IoChatboxEllipses className="  text-[3rem] sm:flex hidden text-green mr-3" />
+          <h1 className=" text-[1.7rem]  md:text-4xl font-bold text-green">
+            ChatApp
           </h1>
         </div>
         <div className="flex items-center mx-3 ">
-          <div className="mr-4">
+          <div className="mr-4 flex items-center">
             <Badge
               count={getNotificationNum(notification)}
               color={"green"}
-              className={notification.length ? "top-[0.4rem] left-2" : "hidden"}
+              className={notification.length ? "bottom-3 left-7" : "hidden"}
             />
             <GoBellFill className="text-2xl " />
           </div>
@@ -140,29 +140,29 @@ const SideDrawer = ({ fetchAgain, setFetchAgain }) => {
             className="flex items-center px-1 bg-gray rounded-lg"
           >
             <img
-              className="rounded-full hover:shadow-lg w-[2.5rem] h-[2.5rem] mx-2 my-1.5"
+              className="rounded-full hover:shadow-lg w-[2.5rem] h-[2.5rem] mx-1 my-1.5"
               src={auth.user.pic}
               alt="user-image"
             />
-            <BiSolidChevronDown className="text-xl mx-2" />
+            <BiSolidChevronDown className="text-xl sm:flex hidden mx-2" />
           </button>
           <div
             className={`${
               showDropdown ? "translate-x-0" : "translate-x-[150%]"
-            } absolute z-10 right-5 shadow-lg bg-lightgray  dropdown duration-300 transform font-semibold w-[10rem]   rounded-lg p-2 flex flex-col top-[100%] `}
+            } absolute z-10 right-5 shadow-lg bg-white  dropdown duration-300 transform font-semibold w-[10rem]   p-2 flex flex-col top-[100%] `}
           >
             <span
               onClick={() => setShowProfile(!showProfile)}
-              className="p-2 cursor-pointer rounded-lg flex items-center  hover:shadow-lg text-lg hover:text-green"
+              className="h-[3rem] ml-2 pl-2 cursor-pointer flex mb-2 hover:bg-gray  duration-300 items-center font-semibold  "
             >
-              <CgProfile className="text-[2.5rem] pr-2" />
+              <CgProfile className="text-[2.3rem] pr-2" />
               Profile
             </span>
             <span
               onClick={handleLogOut}
-              className="p-2 cursor-pointer flex items-center  rounded-lg hover:shadow-lg text-lg hover:text-green"
+              className="h-[3rem] ml-2 cursor-pointer pl-2 flex mb-2 hover:bg-gray  duration-300 items-center font-semibold  "
             >
-              <AiOutlineLogout className="text-[2.5rem] pr-2" />
+              <AiOutlineLogout className="text-[2.3rem] pr-2" />
               Logut
             </span>
           </div>
@@ -174,7 +174,7 @@ const SideDrawer = ({ fetchAgain, setFetchAgain }) => {
             showDrawer ? "translate-x-0" : "-translate-x-[110%]"
           } duration-300  h-[80vh] left-3  px-3 overflow-hidden  rounded-lg bg-green`}
         >
-          <div className="input h-[15%] relative flex items-center">
+          <div className="input h-[56px] relative flex items-center mb-2">
             <input
               id="search"
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -184,7 +184,7 @@ const SideDrawer = ({ fetchAgain, setFetchAgain }) => {
             ></input>
             <label
               htmlFor="search"
-              className=" px-2 duration-300 ease-in-out absolute cursor-pointer  z-0 left-2 top-4 bg-green text-gray  text-sm"
+              className=" px-2 duration-300 ease-in-out absolute cursor-pointer  z-0 left-2 top-0 bg-green text-gray  text-sm"
             >
               Find your friend
             </label>

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { IoMdAdd } from "react-icons/io";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { Checkbox, Modal } from "antd";
-import Spinner from "../pages/UserComponent/Spinner";
+import { Modal } from "antd";
+import Spinner from "../../pages/UserComponent/Spinner";
 
-import { useAuth } from "./context/authContext";
+import { useAuth } from "../context/authContext";
 import axios from "axios";
 import toast from "react-hot-toast";
 import {
@@ -12,17 +12,17 @@ import {
   getSenderEmail,
   getSenderName,
   getSenderPic,
-} from "./ImportantFunctions/Function";
-import { useChats } from "./context/myChatContext";
+} from "../ImportantFunctions/Function";
+import { useChats } from "../context/myChatContext";
 
 const MenuControls = ({ setCreateGroup, fetchAgain, setFetchAgain }) => {
   const [openMenu, setOpenMenu] = useState(false);
   const [auth, setAuth] = useAuth();
   const [openDeleteChatsModal, setOpenDeleteChatsModal] = useState(false);
   const [chat, setChat] = useChats();
-  const [isChecked, setIsChecked] = useState(false);
+  const [selectAll, setSelectAll] = useState(false);
   const [loadingUsers, setLoadingUsers] = useState(false);
-
+  const [checked, setChecked] = useState(false);
   const [selectChatsToremove, setSelectChatsToRemove] = useState([]);
   const backend_url = process.env.REACT_APP_BACKEND_URL;
 
@@ -50,6 +50,16 @@ const MenuControls = ({ setCreateGroup, fetchAgain, setFetchAgain }) => {
     fetchChats();
   }, [fetchAgain]);
 
+  const handleSelectAll = () => {
+    console.log(selectAll);
+    if (selectAll) {
+      setSelectChatsToRemove([]);
+    } else {
+      setSelectChatsToRemove(chat.map((c) => c._id));
+    }
+    setSelectAll(!selectAll);
+  };
+
   const handleRemoveProcess = (value, id) => {
     let all = [...selectChatsToremove];
 
@@ -63,7 +73,7 @@ const MenuControls = ({ setCreateGroup, fetchAgain, setFetchAgain }) => {
 
   const handleRemoveChats = async () => {
     try {
-      if (selectChatsToremove.length == 0) {
+      if (selectChatsToremove.length === 0) {
         toast.error("Select the chats to remove");
         return;
       }
@@ -82,6 +92,8 @@ const MenuControls = ({ setCreateGroup, fetchAgain, setFetchAgain }) => {
 
       if (data?.success) {
         setFetchAgain(!fetchAgain);
+        setOpenDeleteChatsModal(false);
+        setSelectAll(false);
         toast.success(data.message);
       }
     } catch (error) {
@@ -100,7 +112,7 @@ const MenuControls = ({ setCreateGroup, fetchAgain, setFetchAgain }) => {
         <div
           className={`${
             openMenu ? "translate-x-0 z-10 " : "translate-x-6 z-[-1] "
-          } absolute  top-10 w-[12rem] flex-col  p-2 duration-300 transform bg-white flex right-0 justify-center`}
+          } absolute  top-10 w-[12rem] flex-col  p-2 duration-300 transform bg-lightgray flex right-0 justify-center`}
         >
           <button
             onClick={() => setCreateGroup(true)}
@@ -120,12 +132,13 @@ const MenuControls = ({ setCreateGroup, fetchAgain, setFetchAgain }) => {
             open={openDeleteChatsModal}
             footer={false}
             onCancel={() => setOpenDeleteChatsModal(false)}
+            centered
           >
             <div className=" ">
               <h1 className=" bg-green text-white text-2xl font-semibold justify-center mb-1 p-2 my-1 relative flex items-center">
                 Delete Chats
               </h1>
-              <div className="h-full pt-2 overflow-y-scroll ">
+              <div className="h-full pt-2   ">
                 {loadingUsers ? (
                   <>
                     <span className="flex items-center justify-center w-full">
@@ -135,21 +148,33 @@ const MenuControls = ({ setCreateGroup, fetchAgain, setFetchAgain }) => {
                   </>
                 ) : (
                   <>
-                    <div className="pb-1 h-[20rem]  w-[100%]   ">
+                    <div className="pb-1 max-h-[320px]  overflow-y-scroll  w-[100%]  scrollbar ">
                       {chat.length > 0 &&
                         chat.map((mychat) => (
                           <>
-                            <div className="overflow-y-scroll bg-white flex  pl-5 hover:bg-gray w-[100%] scrollbar-hidden ">
+                            <div
+                              key={mychat._id}
+                              className=" bg-white flex  pl-5 hover:bg-gray w-[100%]  "
+                              onClick={() =>
+                                handleRemoveProcess(
+                                  !selectChatsToremove.includes(mychat._id),
+                                  mychat._id
+                                )
+                              }
+                            >
                               <input
                                 id="checkDelete"
                                 type="checkbox"
-                                className="m-2 cursor-pointer "
-                                key={mychat._id}
+                                className="m-2  cursor-pointer "
+                                checked={selectChatsToremove.includes(
+                                  mychat._id
+                                )}
                                 onChange={(e) => {
                                   handleRemoveProcess(
                                     e.target.checked,
                                     mychat._id
                                   );
+                                  e.stopPropagation();
                                 }}
                               />
 
@@ -181,8 +206,14 @@ const MenuControls = ({ setCreateGroup, fetchAgain, setFetchAgain }) => {
                   </>
                 )}
               </div>
-              <div className={`flex justify-center py-1`}>
-                {" "}
+              <div className={`flex justify-between py-1`}>
+                <button
+                  onClick={handleSelectAll}
+                  type="button"
+                  className="bg-green rounded-lg  font-semibold hover:opacity-90  text-[#ffffff] h-[2.5rem] w-[10rem] text-lg "
+                >
+                  {selectAll ? "Unselect All" : "Select All"}
+                </button>
                 <button
                   onClick={handleRemoveChats}
                   className="bg-green rounded-lg ml-2 font-semibold hover:opacity-90  text-[#ffffff] h-[2.5rem] w-[10rem] text-lg "
