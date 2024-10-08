@@ -5,7 +5,13 @@ A live demo of the application is hosted at [https://chat-app-1-tutj.onrender.co
 
 ![Alt text](screenshots/chat-app.png)
 ## Built With
-- 
+- [React](https://reactjs.org/) - A JavaScript library for building user interfaces.
+- [Node.js](https://nodejs.org/) - A JavaScript runtime built on Chrome's V8 JavaScript engine.
+- [Express.js](https://expressjs.com/) - A web application framework for Node.js designed for building APIs.
+- [MongoDB](https://www.mongodb.com/) - A NoSQL database for modern applications.
+- [Tailwind CSS](https://tailwindcss.com/) - A utility-first CSS framework for creating custom designs.
+- [Socket.IO](https://socket.io/) - A JavaScript library for real-time web applications.
+
 ## Run Locally
 To run this project locally, follow these steps:
 
