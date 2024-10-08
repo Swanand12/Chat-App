@@ -4,6 +4,8 @@ Chat-App is a Full Stack Chatting App. Uses Socket.io for real time communicatio
 A live demo of the application is hosted at [https://chat-app-1-tutj.onrender.com](https://chat-app-1-tutj.onrender.com)
 
 ![Alt text](screenshots/chat-app.png)
+## Built With
+- 
 ## Run Locally
 To run this project locally, follow these steps:
 
@@ -33,9 +35,27 @@ To run this project locally, follow these steps:
    npm install
    npm start
 
-## Features
-# Authentication
-![Alt text](screenshots/chat-app.png)
-
+# Features
+## Authentication
+![Alt text](screenshots/SignUp.png)
+![Alt text](screenshots/SignIn.png)
+## View Profile
+![Alt text](screenshots/profile.png)
+## One to One Chat
+![Alt text](screenshots/one-to-one-chat.png)
+## Real Time Chatting with Typing Indicator
+![Alt text](screenshots/typing-indicator.png)
+## Search Users
+![Alt text](screenshots/search-users.png)
+## Create Group Chats
+![Alt text](screenshots/create-group.png)
+## Group Chat
+![Alt text](screenshots/group-chat.png)
+## Real Time Notifications
+![Alt text](screenshots/notification.png)
+## Admin can Rename Group, Remove Users or Add Users 
+![Alt text](screenshots/group-controls.png)
+## User can Delete Chats
+![Alt text](screenshots/delete-chats.png)
 
 
