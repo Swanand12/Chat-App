@@ -16,13 +16,13 @@ import { Badge } from "antd";
 import { getNotificationNum } from "../ImportantFunctions/Function";
 import { useNotification } from "../context/notificationContext";
 import { useNavigate } from "react-router-dom";
+import Spinner from "./../../pages/UserComponent/Spinner";
 
 const SideDrawer = ({ fetchAgain, setFetchAgain }) => {
   const [auth, setAuth] = useAuth();
   const [showDrawer, setShowDrawer] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
   const [users, setUsers] = useState([]);
   const [chat, setChat] = useChats();
   const [notification, setNotification] = useNotification();
@@ -31,7 +31,7 @@ const SideDrawer = ({ fetchAgain, setFetchAgain }) => {
   const navigate = useNavigate();
   const backend_url = process.env.REACT_APP_BACKEND_URL;
 
-  const handleSearch = async () => {
+  const handleSearch = async (searchQuery) => {
     try {
       if (!searchQuery) {
         toast.error("Please enter something in search");
@@ -51,9 +51,7 @@ const SideDrawer = ({ fetchAgain, setFetchAgain }) => {
       );
 
       if (data?.users.length > 0) {
-        setSearchQuery("");
         setLoadingUsers(false);
-        toast.success(data?.message);
         setUsers(data?.users);
       } else {
         toast.error("searched user does not exist");
@@ -103,6 +101,10 @@ const SideDrawer = ({ fetchAgain, setFetchAgain }) => {
       console.log(error);
     }
   };
+
+  // if (loadingUsers) {
+  //   return <Spinner />;
+  // }
 
   return (
     <>
@@ -177,8 +179,8 @@ const SideDrawer = ({ fetchAgain, setFetchAgain }) => {
           <div className="input h-[56px] relative flex items-center mb-2">
             <input
               id="search"
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className=" input font-poppins text-xl px-3 peer text-gray cursor-pointer py-2 w-full caret-gray rounded-lg mt-3 mb-1 border-2 border-gray bg-transparent focus:outline-none"
+              onChange={(e) => handleSearch(e.target.value)}
+              className=" input font-poppins  px-3 peer text-gray cursor-pointer py-2 w-full caret-gray rounded-lg mt-3 mb-1 border-2 border-gray bg-transparent focus:outline-none"
               type="text"
               autoComplete="off"
             ></input>
@@ -188,13 +190,6 @@ const SideDrawer = ({ fetchAgain, setFetchAgain }) => {
             >
               Find your friend
             </label>
-            <button
-              onClick={handleSearch}
-              type="button"
-              className="absolute mt-2 bg-gray py-2 px-3 rounded-r-lg text-green  text-xl right-0"
-            >
-              Go
-            </button>
           </div>
           <div className="h-[85%] mb-2 overflow-y-scroll scrollbar-hidden">
             {loadingUsers ? (

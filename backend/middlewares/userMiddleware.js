@@ -21,10 +21,4 @@ export const requireSignIn = async (req, res, next) => {
       });
     }
   }
-  //  else {
-  //   res.status(400).send({
-  //     success: false,
-  //     message: "Token Required",
-  //   });
-  // }
 };

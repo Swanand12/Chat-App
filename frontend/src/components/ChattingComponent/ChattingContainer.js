@@ -6,6 +6,7 @@ import { useAuth } from "../context/authContext";
 import MessagesComponent from "./MessagesComponent";
 import io from "socket.io-client";
 import { useNotification } from "../context/notificationContext";
+import { IoMdSend } from "react-icons/io";
 
 // const ENDPOINT = "https://chat-app-um5l.onrender.com";
 const ENDPOINT = "http://localhost:8080";
@@ -148,11 +149,11 @@ const ChattingContainer = ({ fetchAgain, setFetchAgain, setIsTyping }) => {
         <div className="h-[calc(100%-60px)] md:h-[calc(100%-80px)] py-1  px-3 ">
           <MessagesComponent messages={messages} />
         </div>
-        <div className="input m-[auto]    rounded-lg w-[90%]  h-[60px]  md:h-[80px] flex justify-center items-center">
+        <div className="input m-[auto]  relative  rounded-lg w-[90%]  h-[60px]  md:h-[80px] flex justify-center items-center">
           <input
             id="search"
             onChange={(e) => typingHandler(e)}
-            className=" input font-poppins text-[1rem] px-3  cursor-pointer w-full border-2 border-green h-[45px] rounded-lg   bg-transparent focus:outline-none"
+            className=" input font-poppins text-sm px-3 relative cursor-pointer w-full border-2 border-green h-[45px] rounded-lg   bg-transparent focus:outline-none"
             type="text"
             value={newMessage}
             placeholder="Type your message here...."
@@ -163,6 +164,13 @@ const ChattingContainer = ({ fetchAgain, setFetchAgain, setIsTyping }) => {
             }}
             autoComplete="off"
           ></input>
+          <button
+            type="button"
+            onClick={() => sendMessage(newMessage, selectedChat)}
+            className=" bg-green text-black pl-3  p-2.5  rounded-lg absolute right-0"
+          >
+            <IoMdSend size={25} />
+          </button>
         </div>
       </div>
     </>

@@ -15,31 +15,31 @@ const MessagesComponent = ({ messages }) => {
         className="flex flex-col h-full   "
       >
         {messages.map((m) => (
-          <div key={m._id} className="scrollbar-hidden">
+          <div key={m._id} className="scrollbar-hidden px-4">
             {selectedChat.isGroupChat ? (
               <>
                 {auth.user._id === m.sender._id ? (
                   <>
-                    <div className="bg-green w-[fit-content] max-w-[15rem] px-2 py-1  ms-[auto] flex flex-wrap items-center rounded-lg  my-[2px] ">
-                      <span className=" leading-tight text-sm text-white     ">
+                    <div className="bg-green w-[fit-content] mb-1 p-2 flex  items-center max-w-[15rem]    ms-[auto] flex flex-wrap items-center rounded-md  my-[2px] ">
+                      <span className=" leading-none text-[13px] text-white     ">
                         {m?.content}
                       </span>
-                      <span className="leading-tight  pl-4 text-[10px] ms-[auto] text-lightgray    ">
+                      <span className="leading-none  pl-4 text-[10px] mt-auto text-end ms-[auto] text-lightgray    ">
                         {m?.time}
                       </span>{" "}
                     </div>
                   </>
                 ) : (
                   <>
-                    <div className="bg-white w-[fit-content] rounded-lg px-2  my-1 [2px]">
-                      <span className="text-[12px]  text-green">
+                    <div className="bg-white w-[fit-content] mb-1 p-2 flex items-center rounded-md   my-1 [2px]">
+                      <span className="text-[13px]  text-green">
                         ~ {m?.sender?.name}
                       </span>
-                      <div className="max-w-[15rem] mt-1  me-[auto] flex flex-wrap items-center  ">
-                        <span className=" leading-tight text-sm   mb-2  ">
+                      <div className="max-w-[15rem]  mt-1  me-[auto] flex flex-wrap items-center  ">
+                        <span className=" leading-none text-[13px]    ">
                           {m?.content}
                         </span>
-                        <span className="leading-tight  pl-4 text-[10px] mb-1 ms-[auto]     ">
+                        <span className="leading-none  pl-4 text-[10px] mt-auto text-end mb-1 p-2 flex items-center ms-[auto]     ">
                           {m?.time}
                         </span>
                       </div>
@@ -51,22 +51,22 @@ const MessagesComponent = ({ messages }) => {
               <>
                 {auth.user._id === m.sender._id ? (
                   <>
-                    <div className="bg-green w-[fit-content] max-w-[15rem] px-2 py-1  ms-[auto] flex flex-wrap items-center rounded-lg  my-[2px] ">
-                      <span className=" leading-tight text-sm text-white   mb-2  ">
+                    <div className="bg-green w-[fit-content] mb-1 p-2 flex items-center max-w-[15rem]    ms-[auto] flex flex-wrap items-center rounded-md  my-[2px] ">
+                      <span className=" leading-none text-[13px] text-white    ">
                         {m?.content}
                       </span>
-                      <span className="leading-tight  pl-4 text-[10px] ms-[auto] text-lightgray    ">
+                      <span className="leading-none  pl-4 text-[10px] mt-auto text-end ms-[auto] text-lightgray    ">
                         {m?.time}
                       </span>{" "}
                     </div>
                   </>
                 ) : (
                   <>
-                    <div className="bg-white w-[fit-content] max-w-[15rem] px-2 py-1  me-[auto] flex flex-wrap items-center rounded-lg  my-[2px] ">
-                      <span className=" leading-tight text-sm   mb-2  ">
+                    <div className="bg-white w-[fit-content] mb-1 p-2 flex items-center max-w-[15rem]    me-[auto] flex flex-wrap items-center rounded-md  my-[2px] ">
+                      <span className=" leading-none text-[13px]    ">
                         {m?.content}
                       </span>
-                      <span className="leading-tight  pl-4 text-[10px]  ms-[auto]     ">
+                      <span className="leading-none  pl-4 text-[10px] mt-auto text-end  ms-[auto]     ">
                         {m?.time}
                       </span>
                     </div>
