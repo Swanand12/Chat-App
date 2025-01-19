@@ -8,8 +8,8 @@ import io from "socket.io-client";
 import { useNotification } from "../context/notificationContext";
 import { IoMdSend } from "react-icons/io";
 
-// const ENDPOINT = "https://chat-app-um5l.onrender.com";
-const ENDPOINT = "http://localhost:8080";
+const ENDPOINT = "https://chat-app-um5l.onrender.com";
+// const ENDPOINT = "http://localhost:8080";
 
 var socket, selectedChatCompare;
 
