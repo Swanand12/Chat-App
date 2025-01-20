@@ -132,7 +132,7 @@ const SideDrawer = ({ fetchAgain, setFetchAgain }) => {
           <div className="mr-4 flex items-center">
             <Badge
               count={getNotificationNum(notification)}
-              color={"#ef233c"}
+              color={"green"}
               className={notification.length ? "bottom-3 left-7" : "hidden"}
             />
             <GoBellFill className="text-2xl " />

@@ -199,7 +199,7 @@ const MyChats = ({ fetchAgain, setFetchAgain }) => {
                   <div className="ms-[auto]">
                     <Badge
                       count={getIndividualNotificationNum(mychat, notification)}
-                      color="#ef233c"
+                      color="green"
                       className={
                         notification.find((n) => n.chat._id === mychat._id)
                           ? ""
