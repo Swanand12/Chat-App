@@ -26,7 +26,7 @@ const ChattingContainer = ({ fetchAgain, setFetchAgain, setIsTyping }) => {
   useEffect(() => {
     socket = io(ENDPOINT);
 
-    socket.on("connect", () => {
+    socket.on("connection", () => {
       console.log("Connected to socket");
     });
 
