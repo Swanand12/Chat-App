@@ -31,15 +31,15 @@ const MessagesComponent = ({ messages }) => {
                   </>
                 ) : (
                   <>
-                    <div className="bg-white w-[fit-content] mb-1 p-2 flex items-center rounded-md   my-1 [2px]">
-                      <span className="text-[13px]  text-green">
+                    <div className="bg-white w-[fit-content]  p-2 mb-1 flex flex-col rounded-md   [2px]">
+                      <span className="text-[12px] text-start font-semibold text-green">
                         ~ {m?.sender?.name}
                       </span>
-                      <div className="max-w-[15rem]  mt-1  me-[auto] flex flex-wrap items-center  ">
+                      <div className="max-w-[15rem]  mt-1 me-[auto] flex flex-wrap   ">
                         <span className=" leading-none text-[13px]    ">
                           {m?.content}
                         </span>
-                        <span className="leading-none  pl-4 text-[10px] mt-auto text-end mb-1 p-2 flex items-center ms-[auto]     ">
+                        <span className="leading-none  pl-4 text-[10px] mt-auto text-end  flex items-center ms-[auto]     ">
                           {m?.time}
                         </span>
                       </div>

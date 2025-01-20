@@ -16,21 +16,6 @@ body {
   height: 100svh;
 }
 
-/* .dropdown::before {
-  width: 3rem;
-  height: 3rem;
-  content: " ";
-  background-color: red;
-  border: 2px;
-  top: 0px;
-  position: absolute;
-  right: 30px;
-  rotate: 45deg;
-  background-color: red;
-
-  z-index: -1;
-} */
-
 .image {
   object-fit: cover;
   object-position: top;
